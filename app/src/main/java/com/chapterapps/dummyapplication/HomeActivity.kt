@@ -2,6 +2,7 @@ package com.chapterapps.dummyapplication
 
 import android.os.Bundle
 import android.view.View
+import android.widget.RadioGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_home.*
@@ -45,7 +46,6 @@ class HomeActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-
         if (savedInstanceState == null)
             supportFragmentManager.beginTransaction()
                     .replace(R.id.fragment_container, FragmentHome(), "")

@@ -1,20 +1,26 @@
 package com.chapterapps.dummyapplication
 
 import android.content.Context
-import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
-class RecyclerAdapter(internal var items: ArrayList<String>, private val context: Context?) : RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder>() {
+class RecyclerAdapter(internal var items: ArrayList<String>, private val context: Context?, val mListener: OnClickListener) : RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder>() {
+
+    public interface OnClickListener {
+        fun OnClick(position: Int, viewHolder: RecyclerViewHolder)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
         return RecyclerViewHolder(LayoutInflater.from(context).inflate(R.layout.item_row, parent, false))
+    }
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
     override fun getItemCount(): Int {
@@ -35,19 +41,11 @@ class RecyclerAdapter(internal var items: ArrayList<String>, private val context
         var i: Int = -1
 
         init {
-            itemView.setOnClickListener(this)
+            tvAnimalType.setOnClickListener(this)
         }
 
         override fun onClick(p0: View?) {
-            if (i == -1) {
-                p0?.setBackgroundColor(ContextCompat.getColor(p0.context, R.color.md_red_300))
-                i = adapterPosition
-            } else if (i == adapterPosition) {
-                p0?.setBackgroundColor(Color.TRANSPARENT)
-                i = -1
-            } else {
-
-            }
+            mListener.OnClick(adapterPosition, this)
         }
     }
 }
